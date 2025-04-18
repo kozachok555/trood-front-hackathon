@@ -1,0 +1,58 @@
+.Header {
+  height: 121px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .menu {
+    height: 42px;
+    width: 1360px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .textTroodCommunity {
+      width: 258px;
+      height: 33px;
+      display: flex;
+      align-items: center;
+      font-family: Aeroport;
+      font-weight: 900;
+      font-size: 24px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .infoMenu {
+      width: 229px;
+      height: 34px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .actionBlock {
+        width: 72px;
+        height: 24px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .avaBlock {
+        width: 131px;
+        height: 34px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .nickName {
+          width: 81px;
+          height: 22px;
+          display: flex;
+          align-items: center;
+          color: #9ca3af;
+          font-family: Aeroport;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+      }
+    }
+  }
+}

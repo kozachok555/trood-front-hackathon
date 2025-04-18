@@ -1,0 +1,49 @@
+.Nav {
+  height: 903px;
+  width: 274px;
+  .navMenuBox {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    .navBtn {
+      border: none;
+      background-color: white;
+      width: 200px;
+      height: 50px;
+      gap: 12px;
+      border-radius: 12px;
+      padding-top: 12px;
+      padding-right: 19px;
+      padding-bottom: 12px;
+      padding-left: 19px;
+      cursor: pointer;
+    }
+    .textNavBtn {
+      width: 69px;
+      height: 19px;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      font-family: Aeroport;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: 0px;
+    }
+  }
+  .textLogout {
+    position: relative;
+    width: 57px;
+    height: 22px;
+    top: 540px;
+    left: 40px;
+    font-family: Aeroport;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #aab4b6;
+  }
+}
