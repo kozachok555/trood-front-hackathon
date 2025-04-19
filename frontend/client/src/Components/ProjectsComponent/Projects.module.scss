@@ -1,6 +1,45 @@
-.Projects{
-    width: 1160px;
-    height: 903px;
-    border-top-left-radius: 16px;
-    background-color: #F3F4F6;
+.Projects {
+  width: 1160px;
+  height: 903px;
+  border-top-left-radius: 16px;
+  background-color: #f3f4f6;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  .divCreateProject {
+    display: flex;
+    justify-content: space-between;
+    width: 1040px;
+  }
+  .activeProjects {
+    width: 1040px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    .activeProjectCard {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      width: 508px;
+      height: 325px;
+      border-radius: 24px;
+      margin-bottom: 10px;
+
+      .cardBox {
+        height: 301px;
+        width: 458px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .avaBox {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+  }
 }

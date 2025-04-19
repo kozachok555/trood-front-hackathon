@@ -1,6 +1,5 @@
 import styles from "./Header.module.scss"
-import imgNoticification from "../../assets/imgNoticification.png"
-import imgMsg from "../../assets/imgMsg.png"
+import { ActionBlock } from "../ActionBlockComponent/ActionBlock"
 import imgAva from "../../assets/imgAva.png"
 import { useNavigate } from "react-router"
 export function Header(){
@@ -13,10 +12,7 @@ export function Header(){
                     navigate("/")
                 }}>TROOD COMMUNITY</h2>
                 <div className={styles.infoMenu}>
-                    <div className={styles.actionBlock}>
-                        <img src={imgMsg} alt="imgMsg" />
-                        <img src={imgNoticification} alt="imgNoticification" />
-                    </div>
+                    <ActionBlock />
                     <div className={styles.avaBlock}>
                         <img src={imgAva} alt="imgAva" />
                         <p className={styles.nickName}>{name}</p>
