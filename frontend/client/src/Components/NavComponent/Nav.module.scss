@@ -20,6 +20,9 @@
       padding-left: 19px;
       cursor: pointer;
     }
+    .navBtn:hover{
+      background-color: #C2C5CB;
+    }
     .textNavBtn {
       width: 69px;
       height: 19px;
@@ -46,4 +49,7 @@
     letter-spacing: 0%;
     color: #aab4b6;
   }
+}
+.active {
+  background-color: #aab4b6 !important;
 }

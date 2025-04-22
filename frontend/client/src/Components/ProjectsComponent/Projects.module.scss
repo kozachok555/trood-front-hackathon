@@ -1,45 +1,158 @@
 .Projects {
   width: 1160px;
-  height: 903px;
+  min-height: 903px;
   border-top-left-radius: 16px;
   background-color: #f3f4f6;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-  .divCreateProject {
+  align-items: end;
+  justify-content: center;
+  .projectsWrapper {
+    min-height: 692px;
     display: flex;
-    justify-content: space-between;
-    width: 1040px;
-  }
-  .activeProjects {
-    width: 1040px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    .activeProjectCard {
+    flex-direction: column;
+    margin-top: 61px;
+    margin-bottom: 150px;
+    .avaBox {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      background: #ffffff;
-      width: 508px;
-      height: 325px;
-      border-radius: 24px;
-      margin-bottom: 10px;
+    }
+    .divCreateProject {
+      display: flex;
+      justify-content: space-between;
+      width: 1040px;
+      height: 70px;
+      align-items: start;
+      .textActiveProjects {
+        width: 800px;
+        height: 38px;
 
+        font-family: Aeroport;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        display: flex;
+        align-items: center;
+      }
+      .btnCreateProject {
+        border: none;
+        width: 186px;
+        height: 47px;
+        border-radius: 24px;
+        background-color: #d1d2d6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .btnText {
+          width: 138px;
+          height: 27px;
+          display: flex;
+          align-items: center;
+          font-family: Aeroport;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+      }
+    }
+    .activeProjects {
+      width: 1040px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      .activeProjectCard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        width: 508px;
+        height: 325px;
+        border-radius: 24px;
+        cursor: pointer;
+        .cardBox {
+          min-height: 301px;
+          width: 458px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .cardInfoBox {
+            margin-top: 32px;
+            height: 201px;
+            .textName {
+              width: 382px;
+              height: 40px;
+              font-family: Aeroport;
+              font-weight: 500;
+              font-size: 24px;
+              line-height: 110.00000000000001%;
+              letter-spacing: 0%;
+            }
+            .textDesc {
+              font-family: Aeroport;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 110.00000000000001%;
+              letter-spacing: 0%;
+            }
+          }
+        }
+      }
+    }
+    .textPassedProjects {
+      width: 800px;
+      height: 116px;
+
+      font-family: Aeroport;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      display: flex;
+      align-items: center;
+    }
+    .passedProjects {
+      width: 1040px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      .passedProjectCard {
+        width: 508px;
+        height: 181px;
+        border-radius: 24px;
+        background: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
       .cardBox {
-        height: 301px;
         width: 458px;
+        height: 88px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        .avaBox {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+        .textName {
+          width: 382px;
+          height: 40px;
+          font-family: Aeroport;
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 110.00000000000001%;
+          letter-spacing: 0%;
         }
       }
     }
   }
+}
+.activeProjectCard:hover{
+  border: 1px solid gray;
+}
+.passedProjectCard:hover{
+  border: 1px solid gray;
 }

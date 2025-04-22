@@ -1,29 +1,34 @@
 import styles from "./Nav.module.scss";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 export function Nav() {
   const navigate = useNavigate();
+  const [active, setActive] = useState("/")
   return (
     <div className={styles.Nav}>
       <div className={styles.navMenuBox}>
         <button
-          className={styles.navBtn}
+          className={`${styles.navBtn} ${active === "/" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/");
             navigate("/");
           }}
         >
           <p className={styles.textNavBtn}>Main page</p>
         </button>
         <button
-          className={styles.navBtn}
+          className={`${styles.navBtn} ${active === "/projects" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/projects");
             navigate("/projects");
           }}
         >
           <p className={styles.textNavBtn}>Projects</p>
         </button>
         <button
-          className={styles.navBtn}
+          className={`${styles.navBtn} ${active === "/vacancies" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/vacancies");
             navigate("/vacancies");
           }}
         >

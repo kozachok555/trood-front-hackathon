@@ -38,7 +38,7 @@ func InitProjects() {
 		ID:          3,
 		Name:        "Project Gamma",
 		Description: "Blockchain-based fintech solution",
-		Deadline:    "15.09.2025",
+		Deadline:    "15.04.2025",
 		Experience:  "4+ years",
 	}
 
