@@ -1,9 +1,8 @@
 import styles from "./Projects.module.scss";
-import { useAtom } from "jotai";
-import { projectsAtom } from "../../atoms";
 import { useNavigate } from "react-router";
 import { AvaNick } from "../AvaNickComponent/AvaNick";
 import { ActionBlock } from "../ActionBlockComponent/ActionBlock";
+import { useEffect, useState } from "react";
 function isDeadlinePassed(deadlineStr) {
   //Checking deadline
   const [day, month, year] = deadlineStr.split("."); //split our month day year to variables
@@ -13,12 +12,22 @@ function isDeadlinePassed(deadlineStr) {
   return deadlineDate < now; //returns true or false,depends deadline is Active(false) or deadline is Passed(true)
 }
 export function Projects() {
-  const [projects] = useAtom(projectsAtom);
   const navigate = useNavigate();
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    const loadProjects = async () => {
+      const store = localStorage.getItem("projects_data");
+      let data = store ? JSON.parse(store) : [];
 
-  if (projects.state === "loading") return <p>Loading...</p>;
-  if (projects.state === "hasError") return <p>Error loading projects</p>;
-
+      if (data.length === 0) {
+        const response = await fetch("/projects");
+        data = await response.json();
+        localStorage.setItem("projects_data", JSON.stringify(data));
+      }
+      setProjects(data);
+    };
+    loadProjects();
+  }, []);
   return (
     <div className={styles.Projects}>
       <div className={styles.projectsWrapper}>
@@ -34,12 +43,17 @@ export function Projects() {
           </button>
         </div>
         <div className={styles.activeProjects}>
-          {projects.data.map((project, index) => {
+          {projects.map((project, index) => {
             if (!isDeadlinePassed(project.deadline)) {
+              //checking the active deadline
               return (
-                <div key={index} className={styles.activeProjectCard} onClick={()=>{
-                  navigate(`/projects/${project.id}`)
-                }}>
+                <div
+                  key={index}
+                  className={styles.activeProjectCard}
+                  onClick={() => {
+                    navigate(`/projects/${project.id}`);
+                  }}
+                >
                   <div className={styles.cardBox}>
                     <div className={styles.cardInfoBox}>
                       <p className={styles.textName}>{project.name}</p>
@@ -47,9 +61,7 @@ export function Projects() {
                     </div>
                     <div className={styles.avaBox}>
                       <AvaNick />
-                      <p className={styles.textDeadline}>
-                        {project.deadline}
-                      </p>
+                      <p className={styles.textDeadline}>{project.deadline}</p>
                       <ActionBlock />
                     </div>
                   </div>
@@ -60,19 +72,22 @@ export function Projects() {
         </div>
         <p className={styles.textPassedProjects}>Passed projects</p>
         <div className={styles.passedProjects}>
-          {projects.data.map((project, index) => {
+          {projects.map((project, index) => {
             if (isDeadlinePassed(project.deadline)) {
+              // checking the passed deadline
               return (
-                <div key={index} className={styles.passedProjectCard} onClick={()=>{
-                  navigate(`/projects/${project.id}`)
-                }}>
+                <div
+                  key={index}
+                  className={styles.passedProjectCard}
+                  onClick={() => {
+                    navigate(`/projects/${project.id}`);
+                  }}
+                >
                   <div className={styles.cardBox}>
                     <p className={styles.textName}>{project.name}</p>
                     <div className={styles.avaBox}>
                       <AvaNick />
-                      <p className={styles.textDeadline}>
-                        {project.deadline}
-                      </p>
+                      <p className={styles.textDeadline}>{project.deadline}</p>
                       <ActionBlock />
                     </div>
                   </div>

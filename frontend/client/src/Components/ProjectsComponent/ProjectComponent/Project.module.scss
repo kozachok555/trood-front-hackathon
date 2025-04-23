@@ -1,3 +1,12 @@
+@mixin inputTextStyle {
+  padding-left: 15px;
+  font-family: Aeroport;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  letter-spacing: 0%;
+}
+
 .Project {
   width: 1160px;
   min-height: 903px;
@@ -104,25 +113,30 @@
             flex-direction: column;
             justify-content: space-between;
           }
-          .addVacancyButton {
-            border: none;
-            width: 186px;
-            height: 47px;
-            border-radius: 24px;
+          .btnBox {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            .btnText {
+            width: 937px;
+            justify-content: space-between;
+            .button {
+              border: none;
+              width: 186px;
+              height: 47px;
+              border-radius: 24px;
               display: flex;
-              align-items: center;
               justify-content: center;
-              width: 138px;
-              height: 27px;
-              font-family: Aeroport;
-              font-weight: 500;
-              font-size: 20px;
-              line-height: 100%;
-              letter-spacing: 0%;
+              align-items: center;
+              .btnText {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 138px;
+                height: 27px;
+                font-family: Aeroport;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 100%;
+                letter-spacing: 0%;
+              }
             }
           }
         }
@@ -157,7 +171,7 @@
   border: 2px solid #d3d4d8;
   border-width: 2px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
 }
 .inputExperience {
   width: 285px;
@@ -174,6 +188,7 @@
   border-width: 2px;
   resize: none;
   background-color: white;
+  
   border: 2px solid #d3d4d8;
 }
 .textField {
@@ -185,4 +200,11 @@
   font-size: 18px;
   line-height: 110.00000000000001%;
   letter-spacing: 0%;
+}
+
+.inputExperience,
+.inputDeadline,
+.inputTextarea,
+.inputSelect {
+  @include inputTextStyle;
 }

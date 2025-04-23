@@ -1,16 +1,14 @@
 import styles from "./Create.module.scss";
 import { Form, Field } from "react-final-form";
 import { useNavigate } from "react-router";
-import { useAtom } from "jotai";
-import { refreshTriggerAttom } from "../../../atoms";
 
 function formatDateToDDMMYYYY(dateStr) {
+  // formating the data deadline
   const [year, month, day] = dateStr.split("-");
   return `${day}.${month}.${year}`;
 }
 export function Create() {
   const navigate = useNavigate();
-  const [, refresh] = useAtom(refreshTriggerAttom);
 
   const onSubmit = async (values) => {
     try {
@@ -23,14 +21,15 @@ export function Create() {
         body: JSON.stringify(values),
       });
 
-      if (!response.ok) {
-        throw new Error("Error request");
+      if (response.ok) {
+        const saved = await response.json();
+        const local = localStorage.getItem("projects_data");
+        const current = local ? JSON.parse(local) : [];
+        current.push(saved);
+        localStorage.setItem("projects_data", JSON.stringify(current));
+
+        navigate("/projects");
       }
-      const result = await response.json();
-      console.log("Project created:", result);
-      console.log(values)
-      refresh((prev) => prev + 1);
-      navigate("/projects");
     } catch (error) {
       console.error("Error:", error.message);
     }

@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 export function Nav() {
   const navigate = useNavigate();
-  const [active, setActive] = useState("/")
+  const [active, setActive] = useState("/") // to operate with active button
   return (
     <div className={styles.Nav}>
       <div className={styles.navMenuBox}>
         <button
-          className={`${styles.navBtn} ${active === "/" ? styles.active : ""}`}
+          className={`${styles.navBtn} ${active === "/" ? styles.active : ""}`}// adding or deleting the class active
           onClick={() => {
             setActive("/");
             navigate("*");

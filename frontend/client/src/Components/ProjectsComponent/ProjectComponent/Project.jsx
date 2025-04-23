@@ -1,57 +1,73 @@
 import styles from "./Project.module.scss";
 import { Form, Field } from "react-final-form";
-import { projectsAtom, refreshTriggerAttom } from "../../../atoms";
 import { useNavigate, useParams, Navigate } from "react-router";
-import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+
+function formatDateToYYYYMMDD(dateStr) {
+  const [day, month, year] = dateStr.split("."); // split to variables
+  return `${year}-${month}-${day}`; //convert time to year-month-day
+}
+function formatDateToDDMMYYYY(dateStr) {
+  const [year, month, day] = dateStr.split("-"); // split to variables
+  return `${day}.${month}.${year}`; //convert time to day.month.year
+}
 
 export function Project() {
   const navigate = useNavigate();
-  const [, refresh] = useAtom(refreshTriggerAttom);
   const { id } = useParams();
-  const [projects] = useAtom(projectsAtom);
-  const [project, setProject] = useState();
-
-  function formatDateToYYYYMMDD(dateStr) {
-    const [day, month, year] = dateStr.split("."); // split to variables
-    return `${year}-${month}-${day}`; //convert time to year-month-day
-  }
-  function formatDateToDDMMYYYY(dateStr) {
-    const [year, month, day] = dateStr.split("-"); // split to variables
-    return `${day}.${month}.${year}`; //convert time to day.month.year
-  }
+  const [project, setProject] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!projects || !Array.isArray(projects.data)) {
+    const store = localStorage.getItem("projects_data");
+    if (!store) {
+      setIsLoading(false);
       return;
     }
+    const data = JSON.parse(store);
+    const found = data.find((elem) => String(elem.id) === String(id));
 
-    const found = projects.data.find((elem) => String(elem.id) === String(id));
     if (!found) {
-      navigate("*");
-      return; 
+      setIsLoading(false);
+    } else {
+      setProject({
+        ...found,
+        deadline: formatDateToYYYYMMDD(found.deadline),
+      });
+      setIsLoading(false);
     }
-    const updated = {
-      ...found,
-      deadline: formatDateToYYYYMMDD(found.deadline),
-    };
-    setProject(updated || null);
-  }, [id, projects]);
+  }, [id]);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
+  if (!project) {
+    return <Navigate to="*" replace />;
+  }
   const onSubmit = async (values) => {
-    const newValues = {
-      ...values,
-      deadline: formatDateToDDMMYYYY(values.deadline),
-    };
+    values.deadline = formatDateToDDMMYYYY(values.deadline);
+
     const response = await fetch(`/projects/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newValues),
+      body: JSON.stringify(values),
     });
-    refresh((prev) => prev - 1);
-    navigate("/projects");
+    if (response.ok) {
+      const data = await response.json();
+      const store = localStorage.getItem("projects_data");
+      let projects = store ? JSON.parse(store) : [];
+      projects = projects.map((proj) => {
+        if (proj.id === data.id) {
+          return data;
+        } else {
+          return proj;
+        }
+      });
+      localStorage.setItem("projects_data", JSON.stringify(projects));
+      navigate("/projects");
+    }
   };
 
   if (project === null) {
@@ -68,11 +84,13 @@ export function Project() {
           <button
             className={styles.btnDelete}
             onClick={async () => {
-              const response = await fetch(`/projects/${id}`, {
+              await fetch(`/projects/${id}`, {
                 method: "DELETE",
               });
-              refresh((prev) => prev + 1);
-              console.log(response);
+              const response = await fetch("/projects");
+              const data = await response.json();
+              localStorage.setItem("projects_data", JSON.stringify(data));
+
               navigate("/projects");
             }}
           >
@@ -146,10 +164,10 @@ export function Project() {
                     </Field>
                   </div>
                   <div className={styles.btnBox}>
-                    <button type="button" className={styles.addVacancyButton}>
+                    <button type="button" className={styles.button}>
                       <p className={styles.btnText}>Add vacancy</p>
                     </button>
-                    <button className={styles.saveButton} type="submit">
+                    <button className={styles.button} type="submit">
                       <p className={styles.btnText}>Save</p>
                     </button>
                   </div>

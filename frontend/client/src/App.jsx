@@ -12,7 +12,7 @@ function App() {
       <Header />
       <div className={styles.Main}>
         <Nav />
-        <Routes>
+        <Routes /* Routing */>
           <Route path="/" element={<Projects />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:id" element={<Project />} />
