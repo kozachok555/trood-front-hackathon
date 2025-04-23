@@ -8,6 +8,8 @@ definitions:
         type: string
       experience:
         type: string
+      field:
+        type: string
       id:
         type: integer
       name:

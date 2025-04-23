@@ -14,20 +14,43 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: start;
-    .formBlockHeader{
-        .textCreatingProject {
-            width: 754px;
-            height: 38px;
-      
-            font-family: Aeroport;
-            font-weight: 500;
-            font-size: 32px;
-            line-height: 100%;
-            letter-spacing: 0%;
-          }
-          .btnDelete{
-            
-          }
+    .formBlockHeader {
+      display: flex;
+      justify-content: space-between;
+      width: 1040px;
+      align-items: center;
+      .textProject {
+        width: 754px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        font-family: Aeroport;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 100%;
+        letter-spacing: 0%;
+      }
+      .btnDelete {
+        border: none;
+        width: 186px;
+        height: 47px;
+        border-radius: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .btnText {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 138px;
+          height: 27px;
+          font-family: Aeroport;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+      }
     }
     .formWrapper {
       width: 1040px;
@@ -40,38 +63,27 @@
       justify-content: center;
       .formCard {
         margin-top: 55px;
-        height: 505px;
-        width: 904px;
+        height: 447px;
+        width: 937px;
         .form {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          height: 505px;
-          .nameFieldBox {
+          height: 447px;
+          .infoBox {
             display: flex;
             justify-content: space-between;
+            width: 903px;
             height: 91px;
-            .nameField {
-              width: 424px;
-              height: 91px;
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            }
             .field {
-              width: 443px;
+              width: 285px;
               height: 91px;
               display: flex;
               flex-direction: column;
               justify-content: space-between;
             }
-          }
-          .expDeadlineBox {
-            display: flex;
-            justify-content: space-between;
-            height: 91px;
             .expField {
-              width: 424px;
+              width: 285px;
               height: 91px;
               display: flex;
               flex-direction: column;
@@ -79,20 +91,20 @@
             }
             .deadlineField {
               display: flex;
-              width: 443px;
+              width: 285px;
               height: 91px;
               flex-direction: column;
               justify-content: space-between;
             }
           }
           .descField {
-            width: 904px;
+            width: 937px;
             height: 192px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
           }
-          .submitButton {
+          .addVacancyButton {
             border: none;
             width: 186px;
             height: 47px;
@@ -118,15 +130,8 @@
     }
   }
 }
-.inputName {
-  width: 424px;
-  height: 61px;
-  border-radius: 8px;
-  background: #ffffff;
-  border: 2px solid #d3d4d8;
-}
 .inputSelect {
-  width: 443px;
+  width: 285px;
   height: 61px;
   padding: 0 16px;
   border: 2px solid #d3d4d8;
@@ -145,7 +150,7 @@
   }
 }
 .inputDeadline {
-  width: 443px;
+  width: 285px;
   height: 61px;
   border-radius: 8px;
   background-color: #ffffff;
@@ -155,7 +160,7 @@
   justify-content: center;
 }
 .inputExperience {
-  width: 424px;
+  width: 285px;
   height: 61px;
   border-radius: 8px;
   border-width: 2px;
@@ -163,7 +168,7 @@
   border: 2px solid #d3d4d8;
 }
 .inputTextarea {
-  width: 904px;
+  width: 937px;
   height: 162px;
   border-radius: 8px;
   border-width: 2px;

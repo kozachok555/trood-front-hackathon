@@ -4,59 +4,54 @@ import { projectsAtom, refreshTriggerAttom } from "../../../atoms";
 import { useNavigate, useParams, Navigate } from "react-router";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-const validate = (values) => {
-  const errors = {};
 
-  //   if (!values.name) {
-  //     errors.name = "Name is required";
-  //   } else if (values.name.length < 3) {
-  //     errors.name = "At least 3 letters";
-  //   }
-
-  //   if (!values.field) {
-  //     errors.field = "Field is required";
-  //   }
-
-  //   if (!values.experience) {
-  //     errors.experience = "Experience is required";
-  //   }
-
-  //   if (!values.deadline) {
-  //     errors.deadline = "Deadline is required";
-  //   } else {
-  //     const deadlineDate = new Date(values.deadline);
-  //     const today = new Date();
-  //     today.setDate(today.getDate());
-  //     today.setHours(0, 0, 0, 0);
-
-  //     if (deadlineDate < today) {
-  //       errors.deadline = "Deadline should be later than today";
-  //     }
-  //   }
-
-  //   if (!values.description) {
-  //     errors.description = "Description is required";
-  //   } else if (values.description.length < 10) {
-  //     errors.description = "At least 10 letters";
-  //   }
-
-  return errors;
-};
 export function Project() {
   const navigate = useNavigate();
   const [, refresh] = useAtom(refreshTriggerAttom);
   const { id } = useParams();
   const [projects] = useAtom(projectsAtom);
-  const [project, setProject] = useState()
+  const [project, setProject] = useState();
+
+  function formatDateToYYYYMMDD(dateStr) {
+    const [day, month, year] = dateStr.split("."); // split to variables
+    return `${year}-${month}-${day}`; //convert time to year-month-day
+  }
+  function formatDateToDDMMYYYY(dateStr) {
+    const [year, month, day] = dateStr.split("-"); // split to variables
+    return `${day}.${month}.${year}`; //convert time to day.month.year
+  }
+
   useEffect(() => {
-    const found = projects?.data?.find(
-      (elem) => String(elem.id) === String(id)
-    );
-    setProject(found || null)
-  }, [id]);
+    if (!projects || !Array.isArray(projects.data)) {
+      return;
+    }
+
+    const found = projects.data.find((elem) => String(elem.id) === String(id));
+    if (!found) {
+      navigate("*");
+      return; 
+    }
+    const updated = {
+      ...found,
+      deadline: formatDateToYYYYMMDD(found.deadline),
+    };
+    setProject(updated || null);
+  }, [id, projects]);
 
   const onSubmit = async (values) => {
-    console.log(project);
+    const newValues = {
+      ...values,
+      deadline: formatDateToDDMMYYYY(values.deadline),
+    };
+    const response = await fetch(`/projects/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newValues),
+    });
+    refresh((prev) => prev - 1);
+    navigate("/projects");
   };
 
   if (project === null) {
@@ -67,7 +62,7 @@ export function Project() {
     <div className={styles.Project}>
       <div className={styles.formBlock}>
         <div className={styles.formBlockHeader}>
-          <p className={styles.textCreatingProject}>
+          <p className={styles.textProject}>
             Creating visual materials for social media
           </p>
           <button
@@ -81,21 +76,21 @@ export function Project() {
               navigate("/projects");
             }}
           >
-            <p>Delete project</p>
+            <p className={styles.btnText}>Delete project</p>
           </button>
         </div>
         <div className={styles.formWrapper}>
           <div className={styles.formCard}>
             <Form
               onSubmit={onSubmit}
-              validate={validate}
+              initialValues={project}
               render={({ handleSubmit }) => (
                 <form onSubmit={handleSubmit} className={styles.form}>
                   <div className={styles.infoBox}>
                     <div className={styles.field}>
                       <label className={styles.textField}>Field</label>
                       <Field name="field" component="select">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <select {...input} className={styles.inputSelect}>
                               <option value=""></option>
@@ -103,9 +98,6 @@ export function Project() {
                               <option value="Development">Development</option>
                               <option value="Marketing">Marketing</option>
                             </select>
-                            {/* {meta.touched && meta.error && (
-                                              <span>{meta.error}</span>
-                                            )} for validation */}
                           </div>
                         )}
                       </Field>
@@ -113,16 +105,13 @@ export function Project() {
                     <div className={styles.expField}>
                       <label className={styles.textField}>Experience</label>
                       <Field name="experience">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <input
                               {...input}
                               type="text"
                               className={styles.inputExperience}
                             />
-                            {/* {meta.touched && meta.error && (
-                                              <span>{meta.error}</span>
-                                            )} for validation */}
                           </div>
                         )}
                       </Field>
@@ -130,16 +119,13 @@ export function Project() {
                     <div className={styles.deadlineField}>
                       <label className={styles.textField}>Deadline</label>
                       <Field name="deadline">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <input
                               {...input}
                               type="date"
                               className={styles.inputDeadline}
                             />
-                            {/* {meta.touched && meta.error && (
-                                              <span>{meta.error}</span>
-                                            )} for validation */}
                           </div>
                         )}
                       </Field>
@@ -149,23 +135,24 @@ export function Project() {
                   <div className={styles.descField}>
                     <label className={styles.textField}>Description</label>
                     <Field name="description">
-                      {({ input, meta }) => (
+                      {({ input }) => (
                         <div>
                           <textarea
                             {...input}
                             className={styles.inputTextarea}
                           />
-                          {/* {meta.touched && meta.error && (
-                                            <span>{meta.error}</span>
-                                          )} for validation */}
                         </div>
                       )}
                     </Field>
                   </div>
-
-                  <button type="submit" className={styles.submitButton}>
-                    <p className={styles.btnText}>Create project</p>
-                  </button>
+                  <div className={styles.btnBox}>
+                    <button type="button" className={styles.addVacancyButton}>
+                      <p className={styles.btnText}>Add vacancy</p>
+                    </button>
+                    <button className={styles.saveButton} type="submit">
+                      <p className={styles.btnText}>Save</p>
+                    </button>
+                  </div>
                 </form>
               )}
             />

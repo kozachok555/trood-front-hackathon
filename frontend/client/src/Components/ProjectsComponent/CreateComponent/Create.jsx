@@ -4,44 +4,6 @@ import { useNavigate } from "react-router";
 import { useAtom } from "jotai";
 import { refreshTriggerAttom } from "../../../atoms";
 
-const validate = (values) => {
-  const errors = {};
-
-  //   if (!values.name) {
-  //     errors.name = "Name is required";
-  //   } else if (values.name.length < 3) {
-  //     errors.name = "At least 3 letters";
-  //   }
-
-  //   if (!values.field) {
-  //     errors.field = "Field is required";
-  //   }
-
-  //   if (!values.experience) {
-  //     errors.experience = "Experience is required";
-  //   }
-
-  //   if (!values.deadline) {
-  //     errors.deadline = "Deadline is required";
-  //   } else {
-  //     const deadlineDate = new Date(values.deadline);
-  //     const today = new Date();
-  //     today.setDate(today.getDate());
-  //     today.setHours(0, 0, 0, 0);
-
-  //     if (deadlineDate < today) {
-  //       errors.deadline = "Deadline should be later than today";
-  //     }
-  //   }
-
-  //   if (!values.description) {
-  //     errors.description = "Description is required";
-  //   } else if (values.description.length < 10) {
-  //     errors.description = "At least 10 letters";
-  //   }
-
-  return errors;
-};
 function formatDateToDDMMYYYY(dateStr) {
   const [year, month, day] = dateStr.split("-");
   return `${day}.${month}.${year}`;
@@ -66,6 +28,7 @@ export function Create() {
       }
       const result = await response.json();
       console.log("Project created:", result);
+      console.log(values)
       refresh((prev) => prev + 1);
       navigate("/projects");
     } catch (error) {
@@ -80,23 +43,19 @@ export function Create() {
           <div className={styles.formCard}>
             <Form
               onSubmit={onSubmit}
-              validate={validate}
               render={({ handleSubmit }) => (
                 <form onSubmit={handleSubmit} className={styles.form}>
                   <div className={styles.nameFieldBox}>
                     <div className={styles.nameField}>
                       <label className={styles.textField}>Name</label>
                       <Field name="name">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <input
                               {...input}
                               type="text"
                               className={styles.inputName}
                             />
-                            {/* {meta.touched && meta.error && (
-                              <span>{meta.error}</span>
-                            )} for validation*/}
                           </div>
                         )}
                       </Field>
@@ -105,7 +64,7 @@ export function Create() {
                     <div className={styles.field}>
                       <label className={styles.textField}>Field</label>
                       <Field name="field" component="select">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <select {...input} className={styles.inputSelect}>
                               <option value=""></option>
@@ -113,9 +72,6 @@ export function Create() {
                               <option value="Development">Development</option>
                               <option value="Marketing">Marketing</option>
                             </select>
-                            {/* {meta.touched && meta.error && (
-                              <span>{meta.error}</span>
-                            )} for validation */}
                           </div>
                         )}
                       </Field>
@@ -126,16 +82,13 @@ export function Create() {
                     <div className={styles.expField}>
                       <label className={styles.textField}>Experience</label>
                       <Field name="experience">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <input
                               {...input}
                               type="text"
                               className={styles.inputExperience}
                             />
-                            {/* {meta.touched && meta.error && (
-                              <span>{meta.error}</span>
-                            )} for validation */}
                           </div>
                         )}
                       </Field>
@@ -143,16 +96,13 @@ export function Create() {
                     <div className={styles.deadlineField}>
                       <label className={styles.textField}>Deadline</label>
                       <Field name="deadline">
-                        {({ input, meta }) => (
+                        {({ input }) => (
                           <div>
                             <input
                               {...input}
                               type="date"
                               className={styles.inputDeadline}
                             />
-                            {/* {meta.touched && meta.error && (
-                              <span>{meta.error}</span>
-                            )} for validation */}
                           </div>
                         )}
                       </Field>
@@ -162,15 +112,12 @@ export function Create() {
                   <div className={styles.descField}>
                     <label className={styles.textField}>Description</label>
                     <Field name="description">
-                      {({ input, meta }) => (
+                      {({ input }) => (
                         <div>
                           <textarea
                             {...input}
                             className={styles.inputTextarea}
                           />
-                          {/* {meta.touched && meta.error && (
-                            <span>{meta.error}</span>
-                          )} for validation */}
                         </div>
                       )}
                     </Field>

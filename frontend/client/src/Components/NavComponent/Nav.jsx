@@ -11,7 +11,7 @@ export function Nav() {
           className={`${styles.navBtn} ${active === "/" ? styles.active : ""}`}
           onClick={() => {
             setActive("/");
-            navigate("/");
+            navigate("*");
           }}
         >
           <p className={styles.textNavBtn}>Main page</p>
@@ -29,38 +29,42 @@ export function Nav() {
           className={`${styles.navBtn} ${active === "/vacancies" ? styles.active : ""}`}
           onClick={() => {
             setActive("/vacancies");
-            navigate("/vacancies");
+            navigate("*");
           }}
         >
           <p className={styles.textNavBtn}>Vacancies</p>
         </button>
         <button
-          className={styles.navBtn}
+          className={`${styles.navBtn} ${active === "/people" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/people");
             navigate("*");
           }}
         >
           <p className={styles.textNavBtn}>People</p>
         </button>
         <button
-          className={styles.navBtn}
+         className={`${styles.navBtn} ${active === "/tests" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/tests");
             navigate("*");
           }}
         >
           <p className={styles.textNavBtn}>Tests</p>
         </button>
         <button
-          className={styles.navBtn}
+          className={`${styles.navBtn} ${active === "/activities" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/activities");
             navigate("*");
           }}
         >
           <p className={styles.textNavBtn}>Activities</p>
         </button>
         <button
-          className={styles.navBtn}
+         className={`${styles.navBtn} ${active === "/settings" ? styles.active : ""}`}
           onClick={() => {
+            setActive("/settings");
             navigate("*");
           }}
         >

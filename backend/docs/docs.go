@@ -384,6 +384,9 @@ const docTemplate = `{
                 "experience": {
                     "type": "string"
                 },
+                "field": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
