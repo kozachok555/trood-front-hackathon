@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { AvaNick } from "../AvaNickComponent/AvaNick";
 import { ActionBlock } from "../ActionBlockComponent/ActionBlock";
 import { useEffect, useState } from "react";
+const REACT_APP_API_URL= "https://backend-trood-test-1.onrender.com"
 function isDeadlinePassed(deadlineStr) {
   //Checking deadline
   const [day, month, year] = deadlineStr.split("."); //split our month day year to variables
@@ -20,7 +21,7 @@ export function Projects() {
       let data = store ? JSON.parse(store) : [];
 
       if (data.length === 0) {
-        const response = await fetch("/projects");
+        const response = await fetch(`${REACT_APP_API_URL}/projects`);
         data = await response.json();
         localStorage.setItem("projects_data", JSON.stringify(data));
       }

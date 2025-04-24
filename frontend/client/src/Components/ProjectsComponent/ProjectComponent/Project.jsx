@@ -2,7 +2,7 @@ import styles from "./Project.module.scss";
 import { Form, Field } from "react-final-form";
 import { useNavigate, useParams, Navigate } from "react-router";
 import { useEffect, useState } from "react";
-
+const REACT_APP_API_URL= "https://backend-trood-test-1.onrender.com"
 function formatDateToYYYYMMDD(dateStr) {
   const [day, month, year] = dateStr.split("."); // split to variables
   return `${year}-${month}-${day}`; //convert time to year-month-day
@@ -47,7 +47,7 @@ export function Project() {
   const onSubmit = async (values) => {
     values.deadline = formatDateToDDMMYYYY(values.deadline);
 
-    const response = await fetch(`/projects/${id}`, {
+    const response = await fetch(`${REACT_APP_API_URL}/projects/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -84,10 +84,10 @@ export function Project() {
           <button
             className={styles.btnDelete}
             onClick={async () => {
-              await fetch(`/projects/${id}`, {
+              await fetch(`${REACT_APP_API_URL}/projects/${id}`, {
                 method: "DELETE",
               });
-              const response = await fetch("/projects");
+              const response = await fetch(`${REACT_APP_API_URL}/projects`);
               const data = await response.json();
               localStorage.setItem("projects_data", JSON.stringify(data));
 

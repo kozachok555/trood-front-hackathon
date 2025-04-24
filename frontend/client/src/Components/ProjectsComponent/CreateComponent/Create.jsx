@@ -1,7 +1,7 @@
 import styles from "./Create.module.scss";
 import { Form, Field } from "react-final-form";
 import { useNavigate } from "react-router";
-
+const REACT_APP_API_URL= "https://backend-trood-test-1.onrender.com"
 function formatDateToDDMMYYYY(dateStr) {
   // formating the data deadline
   const [year, month, day] = dateStr.split("-");
@@ -13,7 +13,7 @@ export function Create() {
   const onSubmit = async (values) => {
     try {
       values.deadline = formatDateToDDMMYYYY(values.deadline);
-      const response = await fetch("/projects", {
+      const response = await fetch(`${REACT_APP_API_URL}/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
